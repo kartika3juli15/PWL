@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('m_level', function (Blueprint $table) {
-            $table->id('level_id'); // ID utama
-            $table->string('level_kode')->unique();
-            $table->string('level_nama'); // Ubah dari nama_level ke level_nama agar cocok dengan Seeder
+            $table->id('level_id');
+            $table->string('level_kode', 10)->unique();
+            $table->string('level_nama', 100);
             $table->timestamps();
         });
     }

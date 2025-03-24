@@ -3,6 +3,30 @@
 
 <head>
     <title>Data User</title>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            text-decoration: none;
+            color: white;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .btn-detail {
+            background-color: #17a2b8; /* Biru */
+        }
+
+        .btn-edit {
+            background-color: #ffc107; /* Kuning */
+            color: black;
+        }
+
+        .btn-delete {
+            background-color: #dc3545; /* Merah */
+        }
+    </style>
 </head>
 
 <body>
@@ -28,8 +52,9 @@
                     <td>{{ $d->level->level_kode }}</td>
                     <td>{{ $d->level->level_nama }}</td>
                     <td>
-                        <a href="/user/ubah/{{ $d->user_id }}">Ubah</a> |
-                        <a href="/user/hapus/{{ $d->user_id }}">Hapus</a>
+                        <a href="/user/detail/{{ $d->user_id }}" class="btn btn-detail">Detail</a>
+                        <a href="/user/ubah/{{ $d->user_id }}" class="btn btn-edit">Edit</a>
+                        <a href="/user/hapus/{{ $d->user_id }}" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">Hapus</a>
                     </td>
                 </tr>
             @endforeach
