@@ -44,10 +44,6 @@
                             <td class="col-9">{{ $supplier->supplier_nama }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Supplier Telp :</th>
-                            <td class="col-9">{{ $supplier->supplier_telp }}</td>
-                        </tr>
-                        <tr>
                             <th class="text-right col-3">Supplier Alamat :</th>
                             <td class="col-9">{{ $supplier->supplier_alamat }}</td>
                         </tr>

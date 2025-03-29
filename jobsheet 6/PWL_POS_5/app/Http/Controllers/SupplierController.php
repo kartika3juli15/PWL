@@ -24,9 +24,10 @@ class SupplierController extends Controller
 
         return view('supplier.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
+
     
     public function list(Request $request){
-        $supplier = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama');
+        $supplier = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat');
 
         if ($request->supplier_kode) {
             $supplier->where('supplier_kode', $request->supplier_kode);
@@ -47,8 +48,8 @@ class SupplierController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
-    }
-    
+        }
+
     public function create()
     {
         $breadcrumb = (object) [
@@ -164,7 +165,6 @@ class SupplierController extends Controller
                 'supplier_nama' => 'required|string|min:3|max:50|regex:/^[a-zA-Z\s]+$/'
             ];
 
-            // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
 
             if($validator->fails()) {

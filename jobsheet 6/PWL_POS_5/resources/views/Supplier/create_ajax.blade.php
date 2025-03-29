@@ -21,12 +21,6 @@
                     <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Supplier Telp</label>
-                    <input value="" type="text" name="supplier_telp" id="supplier_telp" class="form-control"
-                        required>
-                    <small id="error-supplier_telp" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
                     <label>Supplier Alamat</label>
                     <textarea name="supplier_alamat" id="supplier_alamat" class="form-control"
                         required>
@@ -55,11 +49,6 @@
                     required: true,
                     minlength: 0,
                     maxlength: 100
-                },
-                supplier_telp: {
-                    required: true,
-                    minlength: 0,
-                    maxlength: 20
                 },
                 supplier_alamat: {
                     required: true,

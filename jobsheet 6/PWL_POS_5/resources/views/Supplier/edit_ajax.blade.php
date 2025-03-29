@@ -38,12 +38,6 @@
                         <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Supplier Telp</label>
-                        <input value="{{ $supplier->supplier_telp }}" type="text" name="supplier_telp" id="supplier_telp" class="form-control"
-                            required>
-                        <small id="error-supplier_telp" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
                         <label>Supplier Alamat</label>
                         <textarea name="supplier_alamat" id="supplier_alamat" class="form-control"
                             required>
