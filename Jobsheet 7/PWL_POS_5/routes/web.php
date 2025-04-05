@@ -22,12 +22,15 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //router log out
-
 Route::get('/logout-confirm', function () {
     return view('auth.logout'); 
 })->name('logout.confirm');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//router register
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 
 
 Route::get('/', function () {
@@ -163,6 +166,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     Route::get('/', [WelcomeController::class, 'index']);
 
     // masukkan semua route yang perlu autentikasi di sini
+
     Route::group(['prefix' => 'user'], function () {
         Route::middleware(['authorize:ADM,MNG'])->group(function () {
             Route::get('/', [UserController::class, 'index']);                              // menampilkan halaman awal user
