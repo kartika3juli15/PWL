@@ -63,6 +63,13 @@
                     <i class="nav-icon fas fa-cash-register"></i>
                     <p>Transaksi Penjualan</p>
                 </a>
+                <li class="nav-header">Lainnya</li>
+                <li class="nav-item">
+                    <a href="{{ route('logout.confirm') }}" class="nav-link text-danger">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>                    
+                </li>                                
             </li>
         </ul>
     </nav>

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,15 @@ use App\Http\Controllers\SupplierController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//router log out
+
+Route::get('/logout-confirm', function () {
+    return view('auth.logout'); 
+})->name('logout.confirm');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -137,7 +147,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
 
     // masukkan semua route yang perlu autentikasi di sini
     Route::group(['prefix' => 'user'], function () {
-        Route::middleware(['authorize:ADM'])->group(function () {
+        Route::middleware(['authorize:MNG,ADM'])->group(function () {
             Route::get('/', [UserController::class, 'index']);                              // menampilkan halaman awal user
             Route::post('/list', [UserController::class, 'list']);                          // menampilkan data user dalam bentuk json untuk datatables
             Route::get('/create', [UserController::class, 'create']);                       // menampilkan halaman form tambah user
@@ -175,7 +185,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     });
 
     Route::group(['prefix' => 'kategori'], function () {
-        Route::middleware(['authorize: ADM'])->group(function () {
+        Route::middleware(['authorize: ADM,MNG'])->group(function () {
             Route::get('/', [KategoriController::class, 'index']);                          // Menampilkan halaman awal daftar kategori   
             Route::post('/list', [KategoriController::class, 'list']);                      // menampilkan kategori dalam bentuk json untuk datatables
             Route::get('/create', [KategoriController::class, 'create']);                   // menampilkan halaman form tambah kategori 

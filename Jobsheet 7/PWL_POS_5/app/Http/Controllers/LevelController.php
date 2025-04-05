@@ -26,7 +26,7 @@ class LevelController extends Controller
     }
 
     public function list(Request $request) {
-        $level = LevelModel::select('level_id', 'level_kode', 'level_nama', '');
+        $level = LevelModel::select('level_id', 'level_kode', 'level_nama');
 
         if ($request->level_kode) {
             $level->where('level_kode', $request->level_kode);
