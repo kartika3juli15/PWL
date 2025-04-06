@@ -110,7 +110,7 @@ $(document).ready(function() {
             {
                 data: "barang_nama",
                 className: "",
-                width: "37%",
+                width: "30%",
                 orderable: true,
                 searchable: true
             },
@@ -144,7 +144,7 @@ $(document).ready(function() {
             {
                 data: "aksi",
                 className: "text-center",
-                width: "14%",
+                width: "21%",
                 orderable: false,
                 searchable: false
             }
