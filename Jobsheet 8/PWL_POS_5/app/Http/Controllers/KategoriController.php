@@ -46,36 +46,40 @@ class KategoriController extends Controller
 
     public function create_ajax()
     {
-        $kategori = KategoriModel::all();
-        return view('kategori.create_ajax', ['kategori' => $kategori]);
+        return view('kategori.create_ajax');
     }
 
     public function store_ajax(Request $request)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'kategori_kode' => ['required|string|max:6'],
-                'kategori_nama' => ['required|string|min:3|max:50'],
-            ];
+    {   
+    if ($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'kategori_kode' => ['required', 'string', 'max:6'],
+            'kategori_nama' => ['required', 'string', 'min:3', 'max:50'],
+        ];
 
-            $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
-                ]);
-            }
-
-            KategoriModel::create($request->all());
+        if ($validator->fails()) {
             return response()->json([
-                'status' => true,
-                'message' => 'Kategori berhasil disimpan'
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'msgField' => $validator->errors()
             ]);
         }
-        return redirect('/');
+
+        KategoriModel::create([
+            'kategori_kode' => $request->kategori_kode,
+            'kategori_nama' => $request->kategori_nama,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Kategori berhasil disimpan',
+        ]);
     }
+
+    return redirect('/');
+}    
 
     public function edit_ajax(string $id)
     {

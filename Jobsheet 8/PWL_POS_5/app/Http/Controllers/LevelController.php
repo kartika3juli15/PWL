@@ -46,36 +46,41 @@ class LevelController extends Controller
             ->make(true);
     }
 
-    public function create_ajax(){
-        $level = LevelModel::all();
-        return view('level.create_ajax', ['level' => $level]);
+    public function create_ajax() {
+        return view('level.create_ajax');
     }
-
+    
     public function store_ajax(Request $request) {
-        if($request->ajax() || $request->wantsJson()){
+        if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_kode' => ['required|string|min:3'],
-                'level_nama' => ['required|string']
+                'level_kode' => ['required', 'string', 'min:3'],
+                'level_nama' => ['required', 'string']
             ];
-
+    
             $validator = Validator::make($request->all(), $rules);
-
-            if($validator->fails()) {
+    
+            if ($validator->fails()) {
                 return response()->json([
-                    'status' => false, //response sttaus, false: error/gagal, true=berhasil
+                    'status' => false,
                     'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(), // pesan error validasi
+                    'msgField' => $validator->errors(),
                 ]);
             }
-
-            LevelModel::create($request->all());
+    
+            LevelModel::create([
+                'level_kode' => $request->level_kode,
+                'level_nama' => $request->level_nama
+            ]);
+    
             return response()->json([
                 'status' => true,
                 'message' => 'Data Level berhasil disimpan'
             ]);
         }
-        redirect('/');
+    
+        return redirect('/');
     }
+    
 
     public function edit_ajax(string $id) {
         $level = LevelModel::find($id);

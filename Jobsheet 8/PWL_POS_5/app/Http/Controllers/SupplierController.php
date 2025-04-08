@@ -73,7 +73,6 @@ class SupplierController extends Controller
                     ]);
                 }
     
-                // Simpan data secara eksplisit
                 SupplierModel::create([
                     'supplier_kode' => $request->supplier_kode,
                     'supplier_nama' => $request->supplier_nama,
