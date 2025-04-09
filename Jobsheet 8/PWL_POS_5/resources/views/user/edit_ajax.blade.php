@@ -3,8 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger">
@@ -25,8 +25,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Data User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -55,8 +55,14 @@
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
-                        <small class="form-text text-muted">Abaikan jika tidak ingin ubah password</small>
+                        <div class="input-group">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Abaikan jika tidak ingin ubah password">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" tabindex="-1">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                         <small id="error-password" class="error-text text-danger"></small>
                     </div>
 
@@ -80,29 +86,23 @@
 
     <script>
         $(document).ready(function () {
+            // Toggle show/hide password
+            $('.toggle-password').on('click', function () {
+                const passwordInput = $('#password');
+                const icon = $(this).find('i');
+                const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+                passwordInput.attr('type', type);
+                icon.toggleClass('fa-eye fa-eye-slash');
+            });
+
+            // Form validation
             $("#form-edit").validate({
                 rules: {
-                    level_id: {
-                        required: true,
-                        number: true
-                    },
-                    username: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 20
-                    },
-                    nama: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 100
-                    },
-                    password: {
-                        minlength: 6,
-                        maxlength: 20
-                    },
-                    foto: {
-                        extension: "jpg|jpeg|png"
-                    }
+                    level_id: { required: true, number: true },
+                    username: { required: true, minlength: 3, maxlength: 20 },
+                    nama: { required: true, minlength: 3, maxlength: 100 },
+                    password: { minlength: 6, maxlength: 20 },
+                    foto: { extension: "jpg|jpeg|png" }
                 },
                 submitHandler: function (form) {
                     let formData = new FormData(form);

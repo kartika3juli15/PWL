@@ -184,8 +184,6 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']);        // menyimpan perubahan data user Ajax
             Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);       // untuk tampilkan form confirm delete user Ajax
             Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);     // untuk hapus data user Ajax
-            Route::get('/import', [UserController::class, 'import']);                      // ajax form upload excel
-            Route::post('/import_ajax', [UserController::class, 'import_ajax']);           // ajax import excel
             Route::delete('/{id}', [UserController::class, 'destroy']);                     // menghapus data user
             Route::get('/export_excel', [UserController::class, 'export_excel']);          // export excel
             Route::get('/export_pdf', [UserController::class, 'export_pdf']);              // export pdf

@@ -42,7 +42,7 @@ class UserController extends Controller
                 return $user->level->level_nama ?? '-';
             })
             ->addColumn('foto', function ($user) {
-                $url = $user->foto ? asset('storage/foto/' . $user->foto) : asset('images/default.png');
+                $url = $user->foto ? asset('storage/foto/' . $user->foto) : asset('default.jpg');
                 return '<img src="' . $url . '" width="40" height="40" class="rounded-circle" />';
             })
             ->addColumn('aksi', function ($user) {
