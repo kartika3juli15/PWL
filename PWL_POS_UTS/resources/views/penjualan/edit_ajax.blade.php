@@ -36,14 +36,13 @@
                 </div>
                 <div class="form-group">
                     <label>Pembeli</label>
-                    <select name="user_id" id="user_id" class="form-control" required>
-                        <option value="">-- Pilih Pembeli --</option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}" {{ $penjualan->user_id == $user->id ? 'selected' : '' }}>
-                                {{ $user->nama }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="pembeli" id="pembeli" class="form-control" value="{{ $penjualan->pembeli }}" required>
+                    <small id="error-pembeli" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>User (Pegawai)</label>
+                    <input type="text" class="form-control" value="{{ Auth::user()->nama }}" readonly>
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     <small id="error-user_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
@@ -66,7 +65,7 @@
         $("#form-edit").validate({
             rules: {
                 penjualan_kode: { required: true },
-                user_id: { required: true },
+                pembeli: { required: true },
                 penjualan_tanggal: { required: true, date: true }
             },
             submitHandler: function (form) {

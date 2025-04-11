@@ -8,8 +8,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
 
+            <div class="modal-body">
                 {{-- Kode Penjualan --}}
                 <div class="form-group row">
                     <label for="penjualan_kode" class="col-sm-3 col-form-label text-right">Kode Penjualan</label>
@@ -36,8 +36,8 @@
                         <small id="error-penjualan_tanggal" class="error-text text-danger"></small>
                     </div>
                 </div>
-
             </div>
+
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -53,9 +53,9 @@ $(document).ready(function () {
             penjualan_kode: {
                 required: true,
                 minlength: 3,
-                maxlength: 50
+                maxlength: 20
             },
-            pembeli: { // sekarang pembeli jadi input
+            pembeli: {
                 required: true,
                 maxlength: 50
             },
@@ -65,8 +65,16 @@ $(document).ready(function () {
             }
         },
         messages: {
+            penjualan_kode: {
+                required: "Kode penjualan wajib diisi",
+                maxlength: "Maksimal 20 karakter"
+            },
             pembeli: {
-                required: "Kolom pembeli wajib diisi"
+                required: "Nama pembeli wajib diisi",
+                maxlength: "Maksimal 50 karakter"
+            },
+            penjualan_tanggal: {
+                required: "Tanggal penjualan wajib diisi"
             }
         },
         submitHandler: function (form) {
