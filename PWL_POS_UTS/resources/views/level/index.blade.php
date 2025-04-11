@@ -3,12 +3,30 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Daftar Level</h3>
+        <h3 class="card-title">Daftar Kategori</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-info">Import Level</button>
-            <a href="{{ url('/level/export_excel') }}" class="btn btn-primary">Export Excel</a>
-            <a href="{{ url('/level/export_pdf') }}" class="btn btn-warning">Export PDF</a>
-            <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">Tambah Data (Ajax)</button>
+            <div class="row">
+                <div class="dropdown mr-2">
+                    <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-primary mr-2">
+                        Import Data
+                    </button>
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="importExportDropdownPenjualan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Export
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="importExportDropdownPenjualan">
+                        <a class="dropdown-item" href="{{ url('/kategori/export_excel') }}">
+                            <i class="fa fa-file-excel"></i> Export to Excel
+                        </a>
+                        <a class="dropdown-item" href="{{ url('/kategori/export_pdf') }}" target="_blank">
+                            <i class="fa fa-file-pdf"></i> Export to PDF
+                        </a>
+                    </div>
+                </div>
+
+                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success mr-2">
+                    Tambah Data
+                </button>                    
+            </div>
         </div>
     </div>
     <div class="card-body">
