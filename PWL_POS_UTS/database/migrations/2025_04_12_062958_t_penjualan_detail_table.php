@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('barang_id'); // Foreign Key ke tabel m_barang
             $table->integer('harga');
             $table->integer('jumlah');
+            $table->enum('metode_pembayaran', ['cash', 'bank', 'e-money'])->default('cash'); // Kolom tambahan
             $table->timestamps(); // created_at & updated_at otomatis
 
             // Definisi Foreign Keys
