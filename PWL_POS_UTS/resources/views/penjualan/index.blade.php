@@ -8,10 +8,6 @@
                 <h3 class="card-title mb-0">Daftar Penjualan</h3>
             </div>
             <div class="col-md-6 d-flex justify-content-start justify-content-md-end">
-                <button onclick="modalAction('{{ url('/penjualan/import') }}')" class="btn btn-primary mr-2">
-                    Import Data
-                </button>
-
                 <div class="btn-group mr-2">
                     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Export

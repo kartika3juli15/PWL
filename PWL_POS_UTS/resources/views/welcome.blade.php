@@ -2,14 +2,23 @@
 
 @section('content')
 <style>
-    body {
+    .content-wrapper {
         background-image: url('{{ asset('storage/mall.jpeg') }}');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        min-height: 100vh;
+        padding: 20px;
     }
+
     .card {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.95); /* Lebih solid, biar gak terlalu transparan */
+    }
+
+    .content-header h1, /* Untuk Selamat Datang */
+    .breadcrumb {
+        color: white !important;
+        text-shadow: 1px 1px 2px black; /* Tambah bayangan supaya lebih jelas */
     }
 </style>
 
