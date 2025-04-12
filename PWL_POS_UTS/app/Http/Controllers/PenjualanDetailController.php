@@ -8,6 +8,8 @@ use App\Models\PenjualanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PenjualanDetailController extends Controller
 {
@@ -71,6 +73,7 @@ class PenjualanDetailController extends Controller
         $validator = Validator::make($request->all(), [
             'penjualan_id' => 'required|exists:t_penjualan,penjualan_id',
             'barang_id' => 'required|exists:m_barang,barang_id',
+            'harga' => 'required|numeric',
             'jumlah' => 'required|integer|min:1',
             'metode_pembayaran' => 'required|string'
         ]);
@@ -78,6 +81,7 @@ class PenjualanDetailController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
+                'message' => 'Validasi Gagal',
                 'msgField' => $validator->errors()
             ]);
         }
@@ -176,4 +180,85 @@ class PenjualanDetailController extends Controller
 
         return redirect('/penjualan_detail');
     }
+
+    public function export_excel()
+    {
+        // Ambil data penjualan detail untuk diexport
+        $penjualanDetails = PenjualanDetailModel::select('penjualan_id', 'barang_id', 'harga', 'jumlah', 'total_harga', 'metode_pembayaran')
+            ->with(['penjualan', 'barang']) // pastikan relasi 'barang' dan 'penjualan' ada
+            ->orderBy('penjualan_id')
+            ->get();
+    
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+    
+        // Header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Kode Penjualan');
+        $sheet->setCellValue('C1', 'Nama Barang');
+        $sheet->setCellValue('D1', 'Harga Per Barang');
+        $sheet->setCellValue('E1', 'Jumlah Barang');
+        $sheet->setCellValue('F1', 'Total Harga');
+        $sheet->setCellValue('G1', 'Metode Pembayaran');
+    
+        $sheet->getStyle('A1:G1')->getFont()->setBold(true); // Bold header
+    
+        $no = 1;
+        $baris = 2;
+    
+        foreach ($penjualanDetails as $detail) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $detail->penjualan->penjualan_kode ?? '-');
+            $sheet->setCellValue('C' . $baris, $detail->barang->barang_nama ?? '-');
+            $sheet->setCellValue('D' . $baris, $detail->harga);
+            $sheet->setCellValue('E' . $baris, $detail->jumlah);
+            $sheet->setCellValue('F' . $baris, $detail->total_harga);
+            $sheet->setCellValue('G' . $baris, $detail->metode_pembayaran);
+    
+            $baris++;
+            $no++;
+        }
+    
+        // Auto-size kolom
+        foreach (range('A', 'G') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+    
+        $sheet->setTitle('Data Transaksi');
+    
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data_Transaksi_' . date('Y-m-d_H-i-s') . '.xlsx';
+    
+        // Header response untuk download file
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: cache, must-revalidate');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Pragma: public');
+    
+        $writer->save('php://output');
+        exit;
+    }
+    
+    public function export_pdf()
+{
+    $PenjualanDetail = PenjualanDetailModel::select('penjualan_id', 'barang_id', 'harga', 'jumlah', 'total_harga', 'metode_pembayaran')
+        ->orderBy('penjualan_id', 'asc')
+        ->orderBy('barang_id', 'asc')
+        ->orderBy('detail_id', 'asc')
+        ->get();
+
+    $pdf = Pdf::loadView('Penjualan_detail.export_pdf', [
+        'PenjualanDetail' => $PenjualanDetail
+    ]);
+
+    $pdf->setPaper('a4', 'portrait');
+    $pdf->setOption("isRemoteEnabled", true);
+    $pdf->render();
+
+    return $pdf->stream('Data_Transaksi_' . date('Y-m-d_H-i-s') . '.pdf');
 }
+
+}    

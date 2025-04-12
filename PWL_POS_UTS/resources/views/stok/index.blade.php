@@ -1,15 +1,35 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('stok/create') }}">Tambah</a>
-                <button onclick="modalAction('{{ url('/stok/create_ajax/') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Daftar Stok</h3>
+        <div class="card-tools">
+            <div class="row">
+                <div class="dropdown mr-2">
+                    <button onclick="modalAction('{{ url('/stok/import') }}')" class="btn btn-primary mr-2">
+                        Import Data
+                    </button>
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="importExportDropdownPenjualan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Export
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="importExportDropdownPenjualan">
+                        <a class="dropdown-item" href="{{ url('/stok/export_excel') }}">
+                            <i class="fa fa-file-excel"></i> Export to Excel
+                        </a>
+                        <a class="dropdown-item" href="{{ url('/stok/export_pdf') }}" target="_blank">
+                            <i class="fa fa-file-pdf"></i> Export to PDF
+                        </a>
+                    </div>
+                </div>
+
+                <button onclick="modalAction('{{ url('/stok/create_ajax') }}')" class="btn btn-success mr-2">
+                    Tambah Data
+                </button>                    
             </div>
         </div>
-        <div class="card-body">
+    </div>
+    <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif

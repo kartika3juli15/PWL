@@ -22,7 +22,6 @@
                         </a>
                     </div>
                 </div>
-
                 <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success mr-2">
                     Tambah Data
                 </button>                    

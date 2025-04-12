@@ -8,6 +8,18 @@
             </div>
 
             <div class="modal-body">
+
+                {{-- kode --}}
+                <div class="form-group">
+                    <label>Kode Penjualan</label>
+                    <select name="penjualan_id" id="penjualan_id" class="form-control" required>
+                        <option value="">- Pilih Kode -</option>
+                        @foreach ($penjualan as $b)
+                            <option value="{{ $b->penjualan_id }}">{{ $b->penjualan_kode }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
                 {{-- Pilih Barang --}}
                 <div class="form-group">
                     <label>Nama Barang</label>
@@ -71,7 +83,7 @@
             }
         });
 
-        // Hitung total harga
+        // Hitung total harga secara otomatis
         $('#harga, #jumlah').on('input', function () {
             const harga = parseFloat($('#harga').val()) || 0;
             const jumlah = parseInt($('#jumlah').val()) || 0;
@@ -81,23 +93,49 @@
         // Submit form via AJAX
         $('#form_store').on('submit', function (e) {
             e.preventDefault();
-            const formData = $(this).serialize();
 
-            $.post("{{ url('/penjualan_detail/store_ajax') }}", formData, function (res) {
-                if (res.status) {
-                    $('#myModal').modal('hide');
-                    $('#table_penjualan_detail').DataTable().ajax.reload();
-                } else {
-                    alert("Gagal menyimpan data!");
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.status) {
+                        $('#myModal').modal('hide');
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.message || 'Data berhasil disimpan.'
+                        });
+
+                        if (typeof dataPenjualan !== 'undefined') {
+                            dataPenjualan.ajax.reload();
+                        } else {
+                            $('#table_penjualan_detail').DataTable().ajax.reload();
+                        }
+                    } else {
+                        $('.error-text').text('');
+                        $.each(response.msgField, function (prefix, val) {
+                            $('#error-' + prefix).text(val[0]);
+                        });
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: response.message || 'Gagal menyimpan data.'
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        text: 'Gagal menyimpan data.'
+                    });
                 }
-            }).fail(function (xhr) {
-                const errors = xhr.responseJSON?.msgField || {};
-                let errorMsg = 'Terjadi kesalahan:\n';
-                for (const key in errors) {
-                    errorMsg += `${errors[key][0]}\n`;
-                }
-                alert(errorMsg);
             });
         });
     });
 </script>
+
+

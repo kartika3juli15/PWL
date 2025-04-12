@@ -93,14 +93,58 @@
                 }
             },
             columns: [
-                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false, width: "5%" },
-                { data: "penjualan.penjualan_kode", orderable: false, searchable: false, width: "10%" },
-                { data: "barang.barang_nama", orderable: false, searchable: false },
-                { data: "harga", orderable: true, searchable: false },
-                { data: "jumlah", orderable: true, searchable: false, width: "8%" },
-                { data: "total_harga", orderable: true, searchable: false },
-                { data: "metode_pembayaran", orderable: false, searchable: false },
-                { data: "aksi", className: "text-center", orderable: false, searchable: false, width: "12%" }
+                { 
+                    data: "DT_RowIndex", 
+                    className: "text-center", 
+                    orderable: false, 
+                    searchable: false, 
+                    width: "5%" 
+                },
+                { 
+                    data: "penjualan.penjualan_kode", 
+                    className: "text-center", 
+                    orderable: false, 
+                    searchable: false, 
+                    width: "10%" 
+                },
+                { 
+                    data: "barang.barang_nama", 
+                    className: "text-center", 
+                    orderable: false, 
+                    searchable: false 
+                },
+                { 
+                    data: "harga", 
+                    className: "text-center", 
+                    orderable: true, 
+                    searchable: false 
+                },
+                { 
+                    data: "jumlah", 
+                    className: "text-center", 
+                    orderable: true, 
+                    searchable: false, 
+                    width: "8%" 
+                },
+                { 
+                    data: "total_harga", 
+                    className: "text-center", 
+                    orderable: true, 
+                    searchable: false 
+                },
+                { 
+                    data: "metode_pembayaran", 
+                    className: "text-center", 
+                    orderable: false, 
+                    searchable: false, 
+                    width: "10%"
+                },
+                { 
+                    data: "aksi", 
+                    className: "text-center", 
+                    orderable: false, searchable: 
+                    false, width: "21%" 
+                }
             ]
 
         });
