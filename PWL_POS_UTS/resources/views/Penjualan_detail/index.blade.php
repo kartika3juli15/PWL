@@ -26,50 +26,55 @@
             </div>
         </div>
     </div>
+
     <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-1 control-label col-form-label">Filter:</label>
-                        <div class="col-3">
-                            <select class="form-control" id="penjualan_id" name="penjualan_id">
-                                <option value="">- Semua</option>
-                                @foreach ($penjualan as $item)
-                                    <option value="{{ $item->penjualan_id }}">{{ $item->penjualan_kode }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">Kode Penjualan</small>
-                        </div>
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" id="penjualan_id" name="penjualan_id">
+                            <option value="">- Semua</option>
+                            @foreach ($penjualan as $item)
+                                <option value="{{ $item->penjualan_id }}">{{ $item->penjualan_kode }}</option>
+                            @endforeach
+                        </select>
+                        <small class="form-text text-muted">Kode Penjualan</small>
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_penjualan_detail">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kode Penjualan</th>
-                        <th>Nama Barang</th>
-                        <th>Harga Per Barang</th>
-                        <th>Jumlah Barang</th>
-                        <th>Total Harga</th>
-                        <th>Metode Pembayaran</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
         </div>
-    </div>
 
-    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true"></div>
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_penjualan_detail">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Penjualan</th>
+                    <th>Nama Barang</th>
+                    <th>Harga Per Barang</th>
+                    <th>Jumlah Barang</th>
+                    <th>Total Harga</th>
+                    <th>Metode Pembayaran</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true"></div>
 @endsection
 
 @push('css')
+{{-- Tambahkan CSS jika diperlukan --}}
 @endpush
 
 @push('js')
@@ -101,14 +106,14 @@
                     width: "5%" 
                 },
                 { 
-                    data: "penjualan.penjualan_kode", 
+                    data: "penjualan_kode", 
                     className: "text-center", 
                     orderable: false, 
                     searchable: false, 
                     width: "10%" 
                 },
                 { 
-                    data: "barang.barang_nama", 
+                    data: "barang_nama", 
                     className: "text-center", 
                     orderable: false, 
                     searchable: false 
@@ -142,11 +147,11 @@
                 { 
                     data: "aksi", 
                     className: "text-center", 
-                    orderable: false, searchable: 
-                    false, width: "21%" 
+                    orderable: false, 
+                    searchable: false, 
+                    width: "21%" 
                 }
             ]
-
         });
 
         $('#penjualan_id').on('change', function () {
