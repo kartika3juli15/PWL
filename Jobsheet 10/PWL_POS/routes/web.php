@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //router log out
-Route::get('/logout-confirm', function () {
-    return view('auth.logout'); 
-})->name('logout.confirm');
+//Route::get('/logout-confirm', function () {
+//   return view('auth.logout'); 
+//})->name('logout.confirm');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+//Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //router register
 //Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
