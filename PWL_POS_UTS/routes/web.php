@@ -306,7 +306,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     });
 
     Route::group(['prefix' => 'penjualan'], function () {
-        Route::middleware(['authorize:ADM,MNG'])->group(function () {
+        Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
             Route::get('/', [PenjualanController::class, 'index']);                              // menampilkan halaman awal user
             Route::post('/list', [PenjualanController::class, 'list']);                          // menampilkan data user dalam bentuk json untuk datatables
             Route::get('/create', [PenjualanController::class, 'create']);                       // menampilkan halaman form tambah user

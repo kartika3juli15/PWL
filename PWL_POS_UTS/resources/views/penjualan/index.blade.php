@@ -44,6 +44,7 @@
                     <th>Kode Penjualan</th>
                     <th>Tanggal</th>
                     <th>Pembeli</th>
+                    <th>Pegawai</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -76,7 +77,7 @@
                             $('#table_penjualan').DataTable().ajax.reload();
                             Swal.fire('Sukses', res.message, 'success');
                         } else {
-                            Swal.fire('Gagal', res.message, 'error');
+                            Swal.fire('Gagal', res.message ?? 'Validasi gagal.', 'error');
                             console.log(res.msgField);
                         }
                     },
@@ -94,7 +95,10 @@
             serverSide: true,
             ajax: {
                 url: "{{ url('penjualan/list') }}",
-                type: 'POST'
+                type: 'POST',
+                data: function (d) {
+                    // Tambahkan filter jika diperlukan
+                }
             },
             columns: [
                 { 
@@ -118,6 +122,11 @@
                     data: 'pembeli', 
                     name: 'pembeli', 
                     width: "20%" 
+                },
+                {
+                    data: 'user_nama',
+                    name: 'user.username',
+                    width: "15%"
                 },
                 { 
                     data: 'aksi', 

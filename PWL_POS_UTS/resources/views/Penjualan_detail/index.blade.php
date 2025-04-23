@@ -35,20 +35,15 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter:</label>
-                    <div class="col-3">
-                        <select class="form-control" id="penjualan_id" name="penjualan_id">
-                            <option value="">- Semua</option>
-                            @foreach ($penjualan as $item)
-                                <option value="{{ $item->penjualan_id }}">{{ $item->penjualan_kode }}</option>
-                            @endforeach
-                        </select>
-                        <small class="form-text text-muted">Kode Penjualan</small>
-                    </div>
-                </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="penjualan_id">Filter Penjualan</label>
+                <select class="form-control" id="penjualan_id" name="penjualan_id">
+                    <option value="">- Semua</option>
+                    @foreach ($penjualan as $item)
+                        <option value="{{ $item->penjualan_id }}">{{ $item->penjualan_kode }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
@@ -69,13 +64,8 @@
     </div>
 </div>
 
-<!-- Modal -->
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true"></div>
 @endsection
-
-@push('css')
-{{-- Tambahkan CSS jika diperlukan --}}
-@endpush
 
 @push('js')
 <script>
@@ -99,57 +89,44 @@
             },
             columns: [
                 { 
-                    data: "DT_RowIndex", 
-                    className: "text-center", 
-                    orderable: false, 
-                    searchable: false, 
-                    width: "5%" 
+                data: "DT_RowIndex", 
+                className: "text-center", 
+                orderable: false, 
+                searchable: false 
                 },
                 { 
-                    data: "penjualan_kode", 
-                    className: "text-center", 
-                    orderable: false, 
-                    searchable: false, 
-                    width: "10%" 
+                data: "penjualan_kode",
+                className: "text-center"
                 },
                 { 
-                    data: "barang_nama", 
-                    className: "text-center", 
-                    orderable: false, 
-                    searchable: false 
+                data: "barang_nama", 
+                className: "text-center" 
                 },
                 { 
-                    data: "harga", 
-                    className: "text-center", 
-                    orderable: true, 
-                    searchable: false 
+                data: "harga", 
+                className: "text-center" 
                 },
                 { 
-                    data: "jumlah", 
-                    className: "text-center", 
-                    orderable: true, 
-                    searchable: false, 
-                    width: "8%" 
+                data: "jumlah", 
+                className: "text-center" 
                 },
                 { 
-                    data: "total_harga", 
-                    className: "text-center", 
-                    orderable: true, 
-                    searchable: false 
+                    data: null,
+                    className: "text-center",
+                    render: function (data, type, row) {
+                        let total = parseFloat(row.harga) * parseInt(row.jumlah);
+                        return 'Rp. ' + total;
+                    }
                 },
                 { 
-                    data: "metode_pembayaran", 
-                    className: "text-center", 
-                    orderable: false, 
-                    searchable: false, 
-                    width: "10%"
+                data: "metode_pembayaran", 
+                className: "text-center" 
                 },
                 { 
-                    data: "aksi", 
-                    className: "text-center", 
-                    orderable: false, 
-                    searchable: false, 
-                    width: "21%" 
+                data: "aksi", 
+                className: "text-center", 
+                orderable: false, 
+                searchable: false 
                 }
             ]
         });
